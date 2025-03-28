@@ -2,8 +2,14 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
 export async function POST(request: Request) {
-  const { amount, token, network, recipient, returnAddress, reference } =
-    await request.json();
+  const {
+    amount,
+    token,
+    network = "polygon",
+    recipient,
+    returnAddress,
+    reference,
+  } = await request.json();
 
   if (!amount || !recipient || !returnAddress) {
     return NextResponse.json(
@@ -22,20 +28,6 @@ export async function POST(request: Request) {
     const rateData = await rateRes.json();
     const rate = rateData.data;
 
-    const accountRes = await fetch(
-      "https://api.paycrest.io/v1/verify-account",
-      {
-        method: "POST",
-        headers,
-        body: JSON.stringify({
-          institution: recipient.institution,
-          accountIdentifier: recipient.accountIdentifier,
-        }),
-      }
-    );
-    const accountData = await accountRes.json();
-    const accountName = accountData.data.accountName;
-
     const orderParams = {
       amount,
       token,
@@ -44,13 +36,15 @@ export async function POST(request: Request) {
       recipient: {
         institution: recipient.institution,
         accountIdentifier: recipient.accountIdentifier,
-        accountName,
+        accountName: recipient.accountName,
         memo: recipient.memo || "Payment for SME",
         providerId: recipient.providerId || "",
       },
       returnAddress,
       reference,
     };
+
+    console.log(orderParams);
 
     const orderRes = await fetch("https://api.paycrest.io/v1/sender/orders", {
       method: "POST",
