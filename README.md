@@ -1,36 +1,101 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Paycrest Payment App
 
-## Getting Started
+A Next.js-based payment application that enables SMEs to process USDT payments and convert them to NGN (Nigerian Naira) using the Paycrest Sender API.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- Real-time bank account validation
+- Institution/Bank search functionality
+- USDT to NGN conversion
+- Secure payment processing
+- Transaction status tracking
+- Webhook integration for payment updates
+- PostgreSQL database integration
+
+## Tech Stack
+
+- **Frontend**: Next.js 15.2, React 19, TailwindCSS
+- **Backend**: Next.js API Routes
+- **Database**: PostgreSQL with Prisma ORM
+- **Type Safety**: TypeScript
+- **API Integration**: Paycrest Sender API
+
+## Prerequisites
+
+- Node.js (Latest LTS version recommended)
+- PostgreSQL database
+- Paycrest API credentials
+- Yarn/NPM/PNPM/Bun package manager
+
+## Environment Variables
+
+Create a `.env` file in the root directory with the following variables:
+
+```env
+DATABASE_URL="postgresql://user:password@localhost:5432/your_database"
+CLIENT_ID="your_paycrest_client_id"
+CLIENT_SECRET="your_paycrest_client_secret"
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Installation
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Clone the repository:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+git clone https://github.com/yourusername/paycrest-payment-app.git
+cd paycrest-payment-app
+```
 
-## Learn More
+2. Install dependencies:
 
-To learn more about Next.js, take a look at the following resources:
+``` bash
+npm install
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3. Run database migrations:
+```bash
+npm run migrate
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+4. Start the development server:
+```bash
+npm run dev
+```
 
-## Deploy on Vercel
+## Project Structure
+```text
+├── src/
+│ ├── app/ # Next.js app directory
+│ ├── hooks/ # Custom React hooks
+│ ├── lib/ # Shared utilities
+│ └── types/ # TypeScript type definitions
+├── prisma/ # Database schema and migrations
+└── public/ # Static assets
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## API Endpoints
+
+- `POST /api/initiate-order` - Create a new payment order
+- `POST /api/verify-account` - Validate bank account details
+- `GET /api/institutions` - Fetch available banking institutions
+- `POST /api/webhook` - Handle payment status updates
+- `GET /api/transactions/[id]` - Get transaction status
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Acknowledgments
+
+- [Paycrest API](https://paycrest.io) for payment processing
+- [Next.js](https://nextjs.org) for the application framework
+- [Prisma](https://prisma.io) for database ORM
