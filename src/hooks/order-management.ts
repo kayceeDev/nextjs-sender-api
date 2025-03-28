@@ -51,7 +51,7 @@ export function useOrderManagement() {
       setIsLoading(false);
     } catch (error) {
       console.error("Error initiating order:", error);
-        setIsLoading(false);
+      setIsLoading(false);
     }
   };
 

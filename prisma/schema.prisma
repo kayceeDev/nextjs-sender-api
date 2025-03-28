@@ -12,3 +12,17 @@ model Transaction {
   createdAt DateTime @default(now())
   status    String
 }
+
+model Order {
+  id            String   @id @default(uuid())
+  amount        Float
+  token         String
+  network       String
+  recipientInstitution String
+  recipientAccountName String
+  recipientAccountIdentifier String
+  returnAddress String
+  reference     String
+  status        String
+  createdAt     DateTime @default(now())
+}

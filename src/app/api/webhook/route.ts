@@ -25,6 +25,10 @@ export async function POST(request: Request) {
       update: { status: event },
       create: { id: data.id, status: event },
     });
+    await prisma.order.update({
+      where: { id: data.id },
+      data: { status: event },
+    });
     return NextResponse.json({ data: transaction }, { status: 200 });
   } catch (error) {
     console.error("Error processing webhook:", error);

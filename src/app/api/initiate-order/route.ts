@@ -1,5 +1,5 @@
-import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
   const {
@@ -44,7 +44,19 @@ export async function POST(request: Request) {
       reference,
     };
 
-    console.log(orderParams);
+    await prisma.order.create({
+      data: {
+        amount: parseFloat(amount),
+        token,
+        network,
+        recipientInstitution: recipient.institution,
+        recipientAccountName: recipient.accountName,
+        recipientAccountIdentifier: recipient.accountIdentifier,
+        returnAddress,
+        reference,
+        status: "pending",
+      },
+    });
 
     const orderRes = await fetch("https://api.paycrest.io/v1/sender/orders", {
       method: "POST",

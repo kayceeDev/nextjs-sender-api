@@ -3,9 +3,8 @@ import { prisma } from "@/lib/prisma";
 
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } }
-) {
-  const { id } = params;
+  { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
 
   try {
     const transaction = await prisma.transaction.findUnique({
