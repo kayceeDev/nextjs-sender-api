@@ -4,8 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build",
-    "migrate": "npx prisma migrate dev --name init",
+    "migrate": "npx prisma migrate deploy",
+    "generate": "npx prisma generate",
+    "build": "npm run migrate && npm run generate && next build",
     "start": "next start",
     "lint": "next lint"
   },

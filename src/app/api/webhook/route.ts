@@ -26,8 +26,8 @@ export async function POST(request: Request) {
       create: { id: data.id, status: event },
     });
     await prisma.order.update({
-      where: { id: data.id },
-      data: { status: event },
+      where: { reference: data.reference },
+      data: { status: data.status },
     });
     return NextResponse.json({ data: transaction }, { status: 200 });
   } catch (error) {

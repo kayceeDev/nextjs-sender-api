@@ -22,7 +22,7 @@ model Order {
   recipientAccountName String
   recipientAccountIdentifier String
   returnAddress String
-  reference     String
+  reference     String @unique
   status        String
   createdAt     DateTime @default(now())
 }
